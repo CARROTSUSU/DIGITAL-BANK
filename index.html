@@ -63,6 +63,11 @@
     footer p {
       font-size: 0.9em;
     }
+
+    .cta-button.disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -74,11 +79,37 @@
     <h2>Welcome to the Future of Banking</h2>
     <p>Your secure and seamless financial experience is just a click away.</p>
     <a href="https://carrotsusu.github.io/KYC/" class="cta-button">PENDAFTARAN</a>
-    <a href="https://carrotsusu.github.io/GEMS-WORLD/" class="cta-button">GEMS WORLD</a> <!-- Tombol baru ditambahkan di sini -->
+    <a href="https://carrotsusu.github.io/GEMS-WORLD/" id="gems-world-button" class="cta-button disabled" onclick="checkRegistration(event)">GEMS WORLD</a>
   </div>
 
   <footer>
     <p>&copy; 2025 Digital Bank. All Rights Reserved.</p>
   </footer>
+
+  <script>
+    // Fungsi untuk memeriksa jika pengguna telah mendaftar
+    function checkRegistration(event) {
+      // Periksa jika pendaftaran telah diselesaikan
+      const isRegistered = localStorage.getItem('isRegistered') === 'true';
+
+      if (!isRegistered) {
+        event.preventDefault(); // Cegah akses ke Gems World jika belum mendaftar
+        alert('Sila lakukan pendaftaran terlebih dahulu!');
+      }
+    }
+
+    // Fungsi untuk menandakan bahawa pendaftaran telah berjaya
+    function markAsRegistered() {
+      localStorage.setItem('isRegistered', 'true');
+      document.getElementById('gems-world-button').classList.remove('disabled');
+      document.getElementById('gems-world-button').classList.add('cta-button');
+    }
+
+    // Jika pendaftaran sudah selesai, update butang Gems World
+    if (localStorage.getItem('isRegistered') === 'true') {
+      document.getElementById('gems-world-button').classList.remove('disabled');
+      document.getElementById('gems-world-button').classList.add('cta-button');
+    }
+  </script>
 </body>
 </html>
